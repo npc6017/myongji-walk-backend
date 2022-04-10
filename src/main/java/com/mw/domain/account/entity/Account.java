@@ -1,4 +1,11 @@
 package com.mw.domain.account.entity;
 
-public class Account {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public abstract class Account {
+
+    @Id
+    private Long id;
 }
