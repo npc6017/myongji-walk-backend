@@ -30,7 +30,7 @@ public class PathFindService {
         this.edgeWeightRepository = edgeWeightRepository;
     }
 
-    public Long createNode(NodeDto.NodeInfoDto newNode) {
+    public Long createNode(NodeDto.nodeInfoDto newNode) {
         Node save = nodeRepository.save(Node.builder()
                 .newNode(newNode)
                 .build()
@@ -72,17 +72,17 @@ public class PathFindService {
         List<Node> nodeList = nodeRepository.findAll();
         List<Edge> edgeList = edgeRepository.findAll();
 
-        List<NodeDto.NodeInfoDto> mapNodeList = new ArrayList<>();
+        List<NodeDto.MapNodeDto> mapNodeList = new ArrayList<>();
         List<EdgeDto.MapEdgeDto> mapEdgeList = new ArrayList<>();
 
         for (Node node : nodeList)
-            mapNodeList.add(new NodeDto.NodeInfoDto(node.getLatitude(), node.getLongitude()));
+            mapNodeList.add(new NodeDto.MapNodeDto(node));
 
         for (Edge edge : edgeList) {
             Node startNode = edge.getStartNode();
             Node endNode = edge.getEndNode();
 
-            mapEdgeList.add(new EdgeDto.MapEdgeDto(new NodeDto.NodeInfoDto(startNode.getLatitude(), startNode.getLongitude()), new NodeDto.NodeInfoDto(endNode.getLatitude(), endNode.getLongitude())));
+            mapEdgeList.add(new EdgeDto.MapEdgeDto(new NodeDto.MapNodeDto(startNode), new NodeDto.MapNodeDto(endNode)));
         }
         MapDto build = MapDto.builder()
                 .nodeList(mapNodeList)

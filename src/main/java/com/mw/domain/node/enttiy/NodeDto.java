@@ -8,16 +8,27 @@ public class NodeDto {
     private NodeDto() {}
 
     @Getter
-    public static class NodeInfoDto {
+    public static class nodeInfoDto {
         @Schema
         private String latitude;
         @Schema
         private String longitude;
 
         @Builder
-        public NodeInfoDto(String latitude, String longitude) {
+        public nodeInfoDto(String latitude, String longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
+        }
+    }
+
+    @Getter
+    public static class MapNodeDto {
+        @Schema
+        private Long nodeId;
+
+        @Builder
+        public MapNodeDto(Node node) {
+            this.nodeId = node.getId();
         }
     }
 }

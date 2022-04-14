@@ -11,10 +11,14 @@ public class EdgeDto {
     private EdgeDto() {}
 
     @Getter
+    @Schema
     public static class EdgeInfoDto {
+        @Schema
         private long startNode;
+        @Schema
         private long endNode;
-        List<EdgeWeightDto> edgeWeightDtoList;
+        @Schema
+        private List<EdgeWeightDto> edgeWeightDtoList;
 
         @Builder
         public EdgeInfoDto(long startNode, long endNode, List<EdgeWeightDto> edgeWeightDtoList) {
@@ -24,14 +28,15 @@ public class EdgeDto {
         }
     }
 
+    @Getter
     public static class MapEdgeDto {
         @Schema
-        private NodeDto.NodeInfoDto startNode;
+        private NodeDto.MapNodeDto startNode;
         @Schema
-        private NodeDto.NodeInfoDto endNode;
+        private NodeDto.MapNodeDto endNode;
 
         @Builder
-        public MapEdgeDto(NodeDto.NodeInfoDto startNode, NodeDto.NodeInfoDto endNode) {
+        public MapEdgeDto(NodeDto.MapNodeDto startNode, NodeDto.MapNodeDto endNode) {
             this.startNode = startNode;
             this.endNode = endNode;
         }

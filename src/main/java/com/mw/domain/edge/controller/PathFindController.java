@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/map")
 public class PathFindController {
@@ -27,7 +25,7 @@ public class PathFindController {
 
     @ApiOperation(value = "새로운 노드 추가")
     @PostMapping("/node")
-    public ResponseEntity<Long> createNode(@RequestBody NodeDto.NodeInfoDto newNode) {
+    public ResponseEntity<Long> createNode(@RequestBody NodeDto.nodeInfoDto newNode) {
         return ResponseEntity.status(HttpStatus.OK).body(pathFindService.createNode(newNode));
     }
 

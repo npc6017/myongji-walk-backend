@@ -11,12 +11,12 @@ import java.util.List;
 @Getter
 public class MapDto {
     @Schema
-    private List<NodeDto.NodeInfoDto> nodeList;
+    private List<NodeDto.MapNodeDto> nodeList;
     @Schema
     private List<EdgeDto.MapEdgeDto> edgeList;
 
     @Builder
-    public MapDto(List<NodeDto.NodeInfoDto> nodeList, List<EdgeDto.MapEdgeDto> edgeList) {
+    public MapDto(List<NodeDto.MapNodeDto> nodeList, List<EdgeDto.MapEdgeDto> edgeList) {
         this.nodeList = nodeList;
         this.edgeList = edgeList;
     }
