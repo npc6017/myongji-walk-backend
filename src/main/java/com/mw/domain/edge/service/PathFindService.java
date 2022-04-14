@@ -60,7 +60,8 @@ public class PathFindService {
         for (EdgeWeightDto e : edgeWeightDtoList) {
             EdgeWeight edgeWeight = new EdgeWeight(e);
             edgeWeight.setEdge(edge);
-            edgeWeightList.add(edgeWeight);
+            EdgeWeight save = edgeWeightRepository.save(edgeWeight);
+            edgeWeightList.add(save);
         }
 
         edge.setEdgeWeightList(edgeWeightList);
