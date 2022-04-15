@@ -31,7 +31,7 @@ public class NodeDto {
         @Builder
         public MapNodeDto(Node node) {
             this.nodeId = node.getId();
-            this.node = new nodeInfoDto(node.getLatitude(), node.getLatitude());
+            this.node = new nodeInfoDto(node.getLatitude(), node.getLongitude());
         }
     }
 }
