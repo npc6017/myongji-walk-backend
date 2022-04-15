@@ -1,5 +1,6 @@
 package com.mw.domain.edgeweight.enttiy;
 
+import com.mw.domain.edge.entity.Edge;
 import com.mw.domain.node.enttiy.NodeDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -30,13 +31,15 @@ public class EdgeDto {
 
     @Getter
     public static class MapEdgeDto {
+        private Long edgeId;
         @Schema
         private NodeDto.MapNodeDto startNode;
         @Schema
         private NodeDto.MapNodeDto endNode;
 
         @Builder
-        public MapEdgeDto(NodeDto.MapNodeDto startNode, NodeDto.MapNodeDto endNode) {
+        public MapEdgeDto(Edge edge, NodeDto.MapNodeDto startNode, NodeDto.MapNodeDto endNode) {
+            this.edgeId = edge.getId();
             this.startNode = startNode;
             this.endNode = endNode;
         }

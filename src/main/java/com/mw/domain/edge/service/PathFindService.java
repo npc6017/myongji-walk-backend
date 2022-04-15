@@ -83,7 +83,7 @@ public class PathFindService {
             Node startNode = edge.getStartNode();
             Node endNode = edge.getEndNode();
 
-            mapEdgeList.add(new EdgeDto.MapEdgeDto(new NodeDto.MapNodeDto(startNode), new NodeDto.MapNodeDto(endNode)));
+            mapEdgeList.add(new EdgeDto.MapEdgeDto(edge, new NodeDto.MapNodeDto(startNode), new NodeDto.MapNodeDto(endNode)));
         }
         MapDto build = MapDto.builder()
                 .nodeList(mapNodeList)
