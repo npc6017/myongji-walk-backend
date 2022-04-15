@@ -30,7 +30,7 @@ public class PathFindController {
     }
 
     @ApiOperation(value = "기존 노드 삭제")
-    @DeleteMapping("/edge/{nodeId}")
+    @DeleteMapping("/node/{nodeId}")
     public ResponseEntity<String> deleteNode(@PathVariable long nodeId) {
         pathFindService.deleteNode(nodeId);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
