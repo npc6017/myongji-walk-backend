@@ -16,6 +16,8 @@ public class Node {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    String name;
+
     @Column(nullable = false)
     private String latitude;
 
