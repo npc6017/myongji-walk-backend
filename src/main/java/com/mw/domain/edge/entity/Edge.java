@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -25,9 +27,9 @@ public class Edge {
     @OneToOne
     private Node endNode;
 
-    @OneToMany(
-            cascade = CascadeType.ALL
-    )
+    private Integer distance;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EdgeWeight> edgeWeightList;
 
     @Builder
@@ -40,4 +42,29 @@ public class Edge {
     public void setEdgeWeightList(List<EdgeWeight> edgeWeightList) {
         this.edgeWeightList = edgeWeightList;
     }
+
+    @Transactional
+    public void distanceTo() {
+        double startLat = Double.parseDouble(this.startNode.getLatitude());
+        double startLong = Double.parseDouble(this.startNode.getLongitude());
+        double endLat = Double.parseDouble(this.endNode.getLatitude());
+        double endLong = Double.parseDouble(this.endNode.getLongitude());
+
+        double theta = startLong - endLong;
+        double dist = Math.sin(deg2rad(startLat)) * Math.sin(deg2rad(endLat)) + Math.cos(deg2rad(startLat)) * Math.cos(deg2rad(endLat)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        this.distance = (int) Math.round(dist * 60 * 1.1515 * 1609.344);
+        System.out.println(this.distance);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
 }
