@@ -1,4 +1,4 @@
-package com.mw.domain.edge.service;
+package com.mw.domain.pathfind.service;
 
 import com.mw.domain.MapDto;
 import com.mw.domain.edge.entity.Edge;
@@ -10,6 +10,7 @@ import com.mw.domain.edgeweight.repository.EdgeWeightRepository;
 import com.mw.domain.node.enttiy.Node;
 import com.mw.domain.node.enttiy.NodeDto;
 import com.mw.domain.node.repository.NodeRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,23 +20,17 @@ import java.util.List;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class PathFindService {
     private final EdgeRepository edgeRepository;
     private final NodeRepository nodeRepository;
     private final EdgeWeightRepository edgeWeightRepository;
-
-    public PathFindService(EdgeRepository edgeRepository, NodeRepository nodeRepository, EdgeWeightRepository edgeWeightRepository) {
-        this.edgeRepository = edgeRepository;
-        this.nodeRepository = nodeRepository;
-        this.edgeWeightRepository = edgeWeightRepository;
-    }
 
     public Long createNode(NodeDto.nodeInfoDto newNode) {
         Node save = nodeRepository.save(Node.builder()
                 .newNode(newNode)
                 .build()
         );
-
         return save.getId();
     }
 
@@ -91,5 +86,12 @@ public class PathFindService {
                 .build();
 
         return build;
+    }
+
+    public void calculateDistance() {
+        List<Edge> all = edgeRepository.findAll();
+
+        for (Edge edge : all)
+            edge.distanceTo();
     }
 }

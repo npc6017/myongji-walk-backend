@@ -1,7 +1,8 @@
-package com.mw.domain.edge.controller;
+package com.mw.domain.pathfind.controller;
 
 import com.mw.domain.MapDto;
-import com.mw.domain.edge.service.PathFindService;
+import com.mw.domain.pathfind.MapDataUtil;
+import com.mw.domain.pathfind.service.PathFindService;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
 import com.mw.domain.node.enttiy.NodeDto;
 import io.swagger.annotations.ApiOperation;
@@ -10,18 +11,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/map")
+@AllArgsConstructor
 public class PathFindController {
     private final PathFindService pathFindService;
-
-    public PathFindController(PathFindService pathFindService) {
-        this.pathFindService = pathFindService;
-    }
 
     @ApiOperation(value = "새로운 노드 추가")
     @PostMapping("/node")
@@ -49,5 +48,11 @@ public class PathFindController {
     @GetMapping
     public ResponseEntity<MapDto> getMap() {
         return ResponseEntity.status(HttpStatus.OK).body(pathFindService.getMap());
+    }
+
+    @GetMapping("/calculate")
+    public ResponseEntity<String> calculateDistance() {
+        pathFindService.calculateDistance();
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 }
