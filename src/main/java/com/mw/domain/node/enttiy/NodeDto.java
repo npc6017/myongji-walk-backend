@@ -7,15 +7,19 @@ import lombok.Getter;
 public class NodeDto {
     private NodeDto() {}
 
+    public static NodeInfoDto nodeToNodeInfoDto(Node node) {
+        return new NodeInfoDto(node.getLatitude(), node.getLongitude());
+    }
+
     @Getter
-    public static class nodeInfoDto {
+    public static class NodeInfoDto {
         @Schema
         private String latitude;
         @Schema
         private String longitude;
 
         @Builder
-        public nodeInfoDto(String latitude, String longitude) {
+        public NodeInfoDto(String latitude, String longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
         }
@@ -26,12 +30,12 @@ public class NodeDto {
         @Schema
         private Long nodeId;
 
-        private nodeInfoDto node;
+        private NodeInfoDto node;
 
         @Builder
         public MapNodeDto(Node node) {
             this.nodeId = node.getId();
-            this.node = new nodeInfoDto(node.getLatitude(), node.getLongitude());
+            this.node = new NodeInfoDto(node.getLatitude(), node.getLongitude());
         }
     }
 }
