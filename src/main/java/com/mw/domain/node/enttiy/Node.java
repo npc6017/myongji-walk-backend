@@ -25,7 +25,7 @@ public class Node {
     private String longitude;
 
     @Builder
-    public Node(NodeDto.nodeInfoDto newNode) {
+    public Node(NodeDto.NodeInfoDto newNode) {
         this.latitude = newNode.getLatitude();
         this.longitude = newNode.getLongitude();
     }

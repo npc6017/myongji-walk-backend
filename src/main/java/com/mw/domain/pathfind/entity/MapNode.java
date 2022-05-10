@@ -1,11 +1,21 @@
 package com.mw.domain.pathfind.entity;
 
-public class MapNode {
-    Long id;
-    Integer value;
+import lombok.Getter;
 
-    public MapNode(Long id, Integer value) {
+@Getter
+public class MapNode implements Comparable<MapNode>{
+    Long id;
+    Integer cost;
+    Integer distance;
+
+    public MapNode(Long id, Integer cost, Integer distance) {
         this.id = id;
-        this.value = value;
+        this.cost = cost;
+        this.distance = distance;
+    }
+
+    @Override
+    public int compareTo(MapNode o) {
+        return this.cost - o.getCost();
     }
 }
