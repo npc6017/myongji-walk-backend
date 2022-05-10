@@ -10,6 +10,9 @@ import com.mw.domain.edgeweight.repository.EdgeWeightRepository;
 import com.mw.domain.node.enttiy.Node;
 import com.mw.domain.node.enttiy.NodeDto;
 import com.mw.domain.node.repository.NodeRepository;
+import com.mw.domain.pathfind.MapDataUtil;
+import com.mw.domain.pathfind.entity.PathResult;
+import com.mw.domain.pathfind.entity.ResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,9 @@ public class PathFindService {
     private final EdgeRepository edgeRepository;
     private final NodeRepository nodeRepository;
     private final EdgeWeightRepository edgeWeightRepository;
+    private final MapDataUtil mapDataUtil;
 
-    public Long createNode(NodeDto.nodeInfoDto newNode) {
+    public Long createNode(NodeDto.NodeInfoDto newNode) {
         Node save = nodeRepository.save(Node.builder()
                 .newNode(newNode)
                 .build()
@@ -93,5 +97,25 @@ public class PathFindService {
 
         for (Edge edge : all)
             edge.distanceTo();
+    }
+
+    public ResponseDto pathFind(Long start, Long end) {
+        Dijkstra dijkstra = new Dijkstra(mapDataUtil.getLowHillGraph());
+        PathResult pathResult = dijkstra.pathFind(start, end);
+
+        return ResponseDto.builder()
+                .start(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(start)))
+                .goal(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(end)))
+                .items(pathListToNodeInfoDtoList(pathResult.getPathList()))
+                .sumDistance(pathResult.getAllDistance().toString())
+                .build();
+    }
+
+    private ArrayList<NodeDto.NodeInfoDto> pathListToNodeInfoDtoList(ArrayList<Long> pathList) {
+        ArrayList<NodeDto.NodeInfoDto> result = new ArrayList<>();
+        for (Long path : pathList)
+            result.add(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(path)));
+
+        return result;
     }
 }

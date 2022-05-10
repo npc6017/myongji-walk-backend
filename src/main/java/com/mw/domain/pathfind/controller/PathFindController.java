@@ -1,7 +1,7 @@
 package com.mw.domain.pathfind.controller;
 
 import com.mw.domain.MapDto;
-import com.mw.domain.pathfind.MapDataUtil;
+import com.mw.domain.pathfind.entity.ResponseDto;
 import com.mw.domain.pathfind.service.PathFindService;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
 import com.mw.domain.node.enttiy.NodeDto;
@@ -24,7 +24,7 @@ public class PathFindController {
 
     @ApiOperation(value = "새로운 노드 추가")
     @PostMapping("/node")
-    public ResponseEntity<Long> createNode(@RequestBody NodeDto.nodeInfoDto newNode) {
+    public ResponseEntity<Long> createNode(@RequestBody NodeDto.NodeInfoDto newNode) {
         return ResponseEntity.status(HttpStatus.OK).body(pathFindService.createNode(newNode));
     }
 
@@ -54,5 +54,14 @@ public class PathFindController {
     public ResponseEntity<String> calculateDistance() {
         pathFindService.calculateDistance();
         return ResponseEntity.status(HttpStatus.OK).body("OK");
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "경로 탐색", content = @Content(schema = @Schema(implementation = ResponseDto.class)))
+    })
+    @Operation(summary = "경로 탐색 결과 조회", description = "경로 탐색을 조집니다.")
+    @GetMapping("/pathFind")
+    public ResponseEntity<ResponseDto> pathFind(@RequestParam Long start, @RequestParam Long end) {
+        return ResponseEntity.status(HttpStatus.OK).body(pathFindService.pathFind(start, end));
     }
 }
