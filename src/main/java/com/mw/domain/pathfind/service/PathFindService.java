@@ -11,14 +11,14 @@ import com.mw.domain.node.enttiy.Node;
 import com.mw.domain.node.enttiy.NodeDto;
 import com.mw.domain.node.repository.NodeRepository;
 import com.mw.domain.pathfind.MapDataUtil;
+import com.mw.domain.pathfind.entity.Guide;
 import com.mw.domain.pathfind.entity.PathResult;
 import com.mw.domain.pathfind.entity.ResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -102,12 +102,15 @@ public class PathFindService {
     public ResponseDto pathFind(Long start, Long end) {
         Dijkstra dijkstra = new Dijkstra(mapDataUtil.getLowHillGraph());
         PathResult pathResult = dijkstra.pathFind(start, end);
+        ResponseBuilder responseBuilder = new ResponseBuilder();
+        List<Guide> guides = responseBuilder.buildGuide(pathListToNodeInfoDtoList(pathResult.getPathList()), pathResult.getDistance());
 
         return ResponseDto.builder()
                 .start(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(start)))
                 .goal(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(end)))
                 .items(pathListToNodeInfoDtoList(pathResult.getPathList()))
                 .sumDistance(pathResult.getAllDistance().toString())
+                .guide(guides)
                 .build();
     }
 
