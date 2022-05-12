@@ -31,17 +31,19 @@ public class Dijkstra {
     private PathResult getPath(Long start, Long end) {
         Integer allDistance = 0;
         Deque<Long> result = new ArrayDeque<>();
+        Deque<Integer> distance = new ArrayDeque<>();
 
         while(!start.equals(end)) {
             result.push(end);
             if(!hashParent.containsKey(end)) break;
             MapNode node = hashParent.get(end);
             allDistance += node.getDistance();
+            distance.push(node.getDistance());
             end = node.getId();
         }
         result.push(start);
 
-        return new PathResult(allDistance, new ArrayList<>(result));
+        return new PathResult(allDistance, new ArrayList<>(result), new ArrayList<>(distance));
     }
 
     // 길찾아서 경로 주자

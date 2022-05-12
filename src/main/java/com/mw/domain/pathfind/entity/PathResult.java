@@ -8,9 +8,11 @@ import java.util.ArrayList;
 public class PathResult {
     Integer allDistance;
     ArrayList<Long> pathList;
+    ArrayList<Integer> distance;
 
-    public PathResult(Integer allDistance, ArrayList<Long> pathList) {
+    public PathResult(Integer allDistance, ArrayList<Long> pathList, ArrayList<Integer> distance) {
         this.allDistance = allDistance;
         this.pathList = pathList;
+        this.distance = distance;
     }
 }

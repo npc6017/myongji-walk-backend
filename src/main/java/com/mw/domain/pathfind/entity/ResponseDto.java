@@ -18,4 +18,6 @@ public class ResponseDto {
     String sumDistance;
     @Schema
     List<NodeDto.NodeInfoDto> items;
+    @Schema
+    List<Guide> guide;
 }
