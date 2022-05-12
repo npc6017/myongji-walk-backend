@@ -3,7 +3,7 @@ package com.mw.domain.pathfind.entity;
 import lombok.Getter;
 
 @Getter
-public class MapNode implements Comparable<MapNode>{
+public class MapNode implements Comparable<MapNode> {
     Long id;
     Integer cost;
     Integer distance;
