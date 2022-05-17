@@ -1,11 +1,35 @@
 package com.mw.domain.account.entity;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Random;
 
 @Entity
-public abstract class Account {
+@Getter
+@NoArgsConstructor
+public class Account {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String email;
+    private Integer code;
+
+    @Builder
+    public Account(String email, Integer code) {
+        this.email = email;
+        this.code = code;
+    }
+
+    public Integer randomizeCode() {
+        Random random = new Random();
+        this.code = random.nextInt(1000000);
+        return this.code;
+    }
 }
