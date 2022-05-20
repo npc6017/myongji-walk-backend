@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Long> {
+    public Node findNodeByLongitudeAndLatitude(String longitude, String latitude);
 }

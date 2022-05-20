@@ -1,5 +1,6 @@
 package com.mw.domain.node.enttiy;
 
+import com.mw.domain.dto.NodeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,5 +29,9 @@ public class Node {
     public Node(NodeDto.NodeInfoDto newNode) {
         this.latitude = newNode.getLatitude();
         this.longitude = newNode.getLongitude();
+    }
+
+    public void inputName(String name) {
+        this.name = name;
     }
 }

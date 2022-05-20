@@ -1,6 +1,6 @@
 package com.mw.domain.pathfind.service;
 
-import com.mw.domain.node.enttiy.NodeDto;
+import com.mw.domain.dto.NodeDto;
 import com.mw.domain.pathfind.entity.Guide;
 
 import java.util.ArrayDeque;

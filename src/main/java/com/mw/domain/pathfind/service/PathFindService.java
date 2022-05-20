@@ -1,6 +1,7 @@
 package com.mw.domain.pathfind.service;
 
 import com.mw.domain.MapDto;
+import com.mw.domain.dto.NodeDto;
 import com.mw.domain.edge.entity.Edge;
 import com.mw.domain.edge.repository.EdgeRepository;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
@@ -8,7 +9,6 @@ import com.mw.domain.edgeweight.enttiy.EdgeWeight;
 import com.mw.domain.edgeweight.enttiy.EdgeWeightDto;
 import com.mw.domain.edgeweight.repository.EdgeWeightRepository;
 import com.mw.domain.node.enttiy.Node;
-import com.mw.domain.node.enttiy.NodeDto;
 import com.mw.domain.node.repository.NodeRepository;
 import com.mw.domain.pathfind.MapDataUtil;
 import com.mw.domain.pathfind.entity.Guide;

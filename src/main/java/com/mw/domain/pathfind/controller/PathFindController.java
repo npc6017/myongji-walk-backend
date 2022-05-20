@@ -1,10 +1,10 @@
 package com.mw.domain.pathfind.controller;
 
 import com.mw.domain.MapDto;
+import com.mw.domain.dto.NodeDto;
 import com.mw.domain.pathfind.entity.ResponseDto;
 import com.mw.domain.pathfind.service.PathFindService;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
-import com.mw.domain.node.enttiy.NodeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

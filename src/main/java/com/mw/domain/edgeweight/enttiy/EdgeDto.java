@@ -1,7 +1,7 @@
 package com.mw.domain.edgeweight.enttiy;
 
+import com.mw.domain.dto.NodeDto;
 import com.mw.domain.edge.entity.Edge;
-import com.mw.domain.node.enttiy.NodeDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;

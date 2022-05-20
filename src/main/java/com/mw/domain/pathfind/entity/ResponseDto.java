@@ -1,6 +1,6 @@
 package com.mw.domain.pathfind.entity;
 
-import com.mw.domain.node.enttiy.NodeDto;
+import com.mw.domain.dto.NodeDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;

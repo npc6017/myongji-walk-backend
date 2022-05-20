@@ -18,14 +18,12 @@ public class AccountDto {
         String email;
     }
 
-    @Builder
     @Getter
     public static class AccountCodeDto {
         String email;
         Integer code;
     }
 
-    @Builder
     @Getter
     public static class AccountInfoDto {
         String email;

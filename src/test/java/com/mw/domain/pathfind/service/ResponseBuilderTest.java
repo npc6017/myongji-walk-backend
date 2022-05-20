@@ -1,14 +1,11 @@
 package com.mw.domain.pathfind.service;
 
-import com.mw.domain.node.enttiy.NodeDto;
+import com.mw.domain.dto.NodeDto;
 import com.mw.domain.pathfind.entity.Guide;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ResponseBuilderTest {
 
@@ -22,9 +19,9 @@ class ResponseBuilderTest {
         distance.add(4);
         distance.add(5);
 
-        pathList.add(new NodeDto.NodeInfoDto("0.00001", "0"));
-        pathList.add(new NodeDto.NodeInfoDto("0", "0"));
-        pathList.add(new NodeDto.NodeInfoDto("0", "0.00001"));
+        pathList.add(new NodeDto.NodeInfoDto("0.00001", "0", " test1"));
+        pathList.add(new NodeDto.NodeInfoDto("0", "0"," test2"));
+        pathList.add(new NodeDto.NodeInfoDto("0", "0.00001"," test3"));
 
         for (NodeDto.NodeInfoDto node : pathList)
             System.out.println(node.getLatitude() + " " + node.getLongitude());
