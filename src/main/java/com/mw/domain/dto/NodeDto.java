@@ -1,14 +1,16 @@
-package com.mw.domain.node.enttiy;
+package com.mw.domain.dto;
 
+import com.mw.domain.node.enttiy.Node;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
 public class NodeDto {
+
     private NodeDto() {}
 
     public static NodeInfoDto nodeToNodeInfoDto(Node node) {
-        return new NodeInfoDto(node.getLatitude(), node.getLongitude());
+        return new NodeInfoDto(node.getLatitude(), node.getLongitude(), node.getName());
     }
 
     @Getter
@@ -18,10 +20,14 @@ public class NodeDto {
         @Schema
         private String longitude;
 
+        @Schema
+        private String name;
+
         @Builder
-        public NodeInfoDto(String latitude, String longitude) {
+        public NodeInfoDto(String latitude, String longitude, String name) {
             this.latitude = latitude;
             this.longitude = longitude;
+            this.name = name;
         }
     }
 
@@ -35,7 +41,7 @@ public class NodeDto {
         @Builder
         public MapNodeDto(Node node) {
             this.nodeId = node.getId();
-            this.node = new NodeInfoDto(node.getLatitude(), node.getLongitude());
+            this.node = new NodeInfoDto(node.getLatitude(), node.getLongitude(), node.getName());
         }
     }
 }
