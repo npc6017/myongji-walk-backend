@@ -23,4 +23,16 @@ public class AccountController {
         accountService.validateEmail(accountEmailDto);
         return ResponseEntity.status(HttpStatus.OK).body("Good");
     }
+
+    @PostMapping("/code")
+    public ResponseEntity<String> validateCode(@RequestBody AccountDto.AccountCodeDto accountCodeDto) {
+        accountService.validateCode(accountCodeDto);
+        return ResponseEntity.status(HttpStatus.OK).body("Good");
+    }
+
+    @PostMapping
+    public ResponseEntity<String> signUp(@RequestBody AccountDto.AccountInfoDto accountInfoDto) {
+        accountService.signUp(accountInfoDto);
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
+    }
 }

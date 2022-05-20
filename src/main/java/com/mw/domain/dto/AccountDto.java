@@ -19,7 +19,16 @@ public class AccountDto {
     }
 
     @Builder
+    @Getter
     public static class AccountCodeDto {
+        String email;
         Integer code;
+    }
+
+    @Builder
+    @Getter
+    public static class AccountInfoDto {
+        String email;
+        String password;
     }
 }

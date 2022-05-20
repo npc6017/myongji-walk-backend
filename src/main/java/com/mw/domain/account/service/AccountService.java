@@ -18,6 +18,25 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     @Transactional
+    public void signUp(AccountDto.AccountInfoDto accountInfoDto) {
+        Account account = accountRepository.findAccountByEmail(accountInfoDto.getEmail());
+
+        // 존재하는 account가 없다는 예외
+        if(account == null) throw new RuntimeException();
+
+        account.inputDetails(accountInfoDto.getPassword());
+    }
+
+    public void validateCode(AccountDto.AccountCodeDto accountCodeDto) {
+        Account account = accountRepository.findAccountByEmail(accountCodeDto.getEmail());
+        // 존재하는 account가 없다는 예외
+        if(account == null) throw new RuntimeException();
+
+        // code가 다르다는 예외
+        if(!account.validateCode(accountCodeDto.getCode())) throw new RuntimeException();
+    }
+
+    @Transactional
     public void validateEmail(AccountDto.AccountEmailDto accountEmailDto) {
         String email = accountEmailDto.getEmail();
         validateMyoungJiPeople(email);

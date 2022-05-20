@@ -19,6 +19,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
+    private String password;
     private Integer code;
 
     @Builder
@@ -31,5 +32,13 @@ public class Account {
         Random random = new Random();
         this.code = random.nextInt(1000000);
         return this.code;
+    }
+
+    public boolean validateCode(Integer code) {
+        return this.code.equals(code);
+    }
+
+    public void inputDetails(String password) {
+        this.password = password;
     }
 }
