@@ -19,4 +19,8 @@ public class NodeService {
         node.inputName(nodeNameDto.getName());
         return NodeDto.nodeToNodeInfoDto(nodeRepository.save(node));
     }
+
+    public NodeDto.NodeInfoDto findByNodeName(NodeDto.NodeNameDto nodeNameDto) {
+        return NodeDto.nodeToNodeInfoDto(nodeRepository.findNodeByName(nodeNameDto.getName()));
+    }
 }

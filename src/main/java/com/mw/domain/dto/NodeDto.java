@@ -44,4 +44,10 @@ public class NodeDto {
             this.node = new NodeInfoDto(node.getLatitude(), node.getLongitude(), node.getName());
         }
     }
+
+    @Getter
+    public static class NodeNameDto {
+        @Schema
+        private String name;
+    }
 }
