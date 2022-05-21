@@ -23,7 +23,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "이메일 인증 API", content = @Content(schema = @Schema(implementation = AccountDto.AccountEmailDto.class)))
+            @ApiResponse(responseCode = "200", description = "이메일 인증 API", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/valid")
     public ResponseEntity<String> getCodeByEmail(@Valid @RequestBody AccountDto.AccountEmailDto accountEmailDto) {
@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "code 인증 API", content = @Content(schema = @Schema(implementation = AccountDto.AccountCodeDto.class)))
+            @ApiResponse(responseCode = "200", description = "code 인증 API", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/code")
     public ResponseEntity<String> validateCode(@RequestBody AccountDto.AccountCodeDto accountCodeDto) {
@@ -41,7 +41,7 @@ public class AccountController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "인증 후 회원가입 API", content = @Content(schema = @Schema(implementation = AccountDto.AccountInfoDto.class)))
+            @ApiResponse(responseCode = "200", description = "인증 후 회원가입 API", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping
     public ResponseEntity<String> signUp(@RequestBody AccountDto.AccountInfoDto accountInfoDto) {
@@ -50,10 +50,10 @@ public class AccountController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "로그인 API", content = @Content(schema = @Schema(implementation = AccountDto.AccountInfoDto.class)))
+            @ApiResponse(responseCode = "200", description = "로그인 API", content = @Content(schema = @Schema(implementation = AccountDto.TokenDto.class)))
     })
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(AccountDto.AccountInfoDto accountInfoDto) {
+    public ResponseEntity<AccountDto.TokenDto> signIn(AccountDto.AccountInfoDto accountInfoDto) {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.signIn(accountInfoDto));
     }
 }

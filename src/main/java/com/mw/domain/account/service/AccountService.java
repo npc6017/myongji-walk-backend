@@ -29,11 +29,13 @@ public class AccountService {
         account.inputDetails(accountInfoDto.getPassword());
     }
 
-    public String signIn(AccountDto.AccountInfoDto accountInfoDto) {
+    public AccountDto.TokenDto signIn(AccountDto.AccountInfoDto accountInfoDto) {
         Account account = accountRepository.findAccountByEmail(accountInfoDto.getEmail());
         if(!account.validatePassword(accountInfoDto.getPassword())) throw new RuntimeException();
 
-        return jwtProvider.createAccessToken(account);
+        return AccountDto.TokenDto.builder()
+                .accessToken(jwtProvider.createAccessToken(account))
+                .build();
     }
 
 

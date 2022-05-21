@@ -30,7 +30,7 @@ public class NodeController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "node 이름으로 검색 API", content = @Content(schema = @Schema(implementation = NodeDto.NodeNameDto.class)))
+            @ApiResponse(responseCode = "200", description = "node 이름으로 검색 API", content = @Content(schema = @Schema(implementation = NodeDto.NodeInfoDto.class)))
     })
     @GetMapping
     public ResponseEntity<NodeDto.NodeInfoDto> findByNodeName(NodeDto.NodeNameDto nodeNameDto) {

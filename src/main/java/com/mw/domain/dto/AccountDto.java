@@ -35,4 +35,15 @@ public class AccountDto {
         @Schema
         String password;
     }
+
+    @Getter
+    public static class TokenDto {
+        @Schema
+        String accessToken;
+
+        @Builder
+        public TokenDto(String accessToken) {
+            this.accessToken = accessToken;
+        }
+    }
 }
