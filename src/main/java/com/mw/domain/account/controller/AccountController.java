@@ -35,4 +35,9 @@ public class AccountController {
         accountService.signUp(accountInfoDto);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
+
+    @PostMapping("/signIn")
+    public ResponseEntity<String> signIn(AccountDto.AccountInfoDto accountInfoDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.signIn(accountInfoDto));
+    }
 }

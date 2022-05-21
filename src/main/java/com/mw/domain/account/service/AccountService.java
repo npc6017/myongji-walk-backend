@@ -4,6 +4,7 @@ import com.mw.domain.account.entity.Account;
 import com.mw.domain.account.repository.AccountRepository;
 import com.mw.domain.dto.AccountDto;
 import com.mw.domain.dto.MailDto;
+import com.mw.domain.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.Random;
 public class AccountService {
     private final MailService mailService;
     private final AccountRepository accountRepository;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signUp(AccountDto.AccountInfoDto accountInfoDto) {
@@ -26,6 +28,14 @@ public class AccountService {
 
         account.inputDetails(accountInfoDto.getPassword());
     }
+
+    public String signIn(AccountDto.AccountInfoDto accountInfoDto) {
+        Account account = accountRepository.findAccountByEmail(accountInfoDto.getEmail());
+        if(!account.validatePassword(accountInfoDto.getPassword())) throw new RuntimeException();
+
+        return jwtProvider.createAccessToken(account);
+    }
+
 
     public void validateCode(AccountDto.AccountCodeDto accountCodeDto) {
         Account account = accountRepository.findAccountByEmail(accountCodeDto.getEmail());

@@ -41,4 +41,8 @@ public class Account {
     public void inputDetails(String password) {
         this.password = password;
     }
+
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
+    }
 }
