@@ -1,20 +1,21 @@
-package com.mw.domain.security;
+package com.mw.security;
 
 import com.mw.domain.account.entity.Account;
 import com.mw.domain.account.repository.AccountRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+
+@RequiredArgsConstructor
 @Component
-@AllArgsConstructor
 public class JwtProvider {
-    @Value("${jwt.accessTokenExpiration}") private static Long accessExpiration;
-    @Value("${jwt.secret}") private static String secretKey;
+    @Value("${jwt.accessTokenExpiration}") private Long accessExpiration;
+    @Value("${jwt.secret}") private String secretKey;
     private final AccountRepository accountRepository;
 
     public String createAccessToken(Account account) {
