@@ -41,7 +41,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(PasswordIncorrectException.class)
-    public ResponseEntity<ErrorResponse> handlPasswordIncorrectException(PasswordIncorrectException e) {
+    public ResponseEntity<ErrorResponse> handlePasswordIncorrectException(PasswordIncorrectException e) {
+        ErrorResponse response = ErrorResponse.of(e.getMessage());
+        return getResponse(response, HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleObjectNotFoundException(ObjectNotFoundException e) {
         ErrorResponse response = ErrorResponse.of(e.getMessage());
         return getResponse(response, HttpStatus.BAD_REQUEST.value());
     }

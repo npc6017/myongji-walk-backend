@@ -7,4 +7,5 @@ public class Message {
     public static String NOT_MYOUNGJI_MEMBER = "명지대학교 학생이 아닙니다.";
     public static String NOT_IN_EMAIL_FORMAT = "이메일 형식이 아닙니다.";
     public static String PASSWORD_INCORRECT = "패스워드가 틀렸습니다.";
+    public static String OBJECT_NOT_FOUND = "데이터가 존재하지 않습니다.";
 }

@@ -3,6 +3,7 @@ package com.mw.domain.node.service;
 import com.mw.domain.dto.NodeDto;
 import com.mw.domain.node.enttiy.Node;
 import com.mw.domain.node.repository.NodeRepository;
+import com.mw.exception.custom.ObjectNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,6 @@ public class NodeService {
     }
 
     public NodeDto.NodeInfoDto findByNodeName(NodeDto.NodeNameDto nodeNameDto) {
-        return NodeDto.nodeToNodeInfoDto(nodeRepository.findNodeByName(nodeNameDto.getName()));
+        return NodeDto.nodeToNodeInfoDto(nodeRepository.findNodeByName(nodeNameDto.getName()).orElseThrow(ObjectNotFoundException::new));
     }
 }

@@ -4,8 +4,10 @@ import com.mw.domain.node.enttiy.Node;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface NodeRepository extends JpaRepository<Node, Long> {
     Node findNodeByLongitudeAndLatitude(String longitude, String latitude);
-    Node findNodeByName(String name);
+    Optional<Node> findNodeByName(String name);
 }
