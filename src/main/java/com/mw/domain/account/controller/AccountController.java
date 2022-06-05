@@ -53,7 +53,7 @@ public class AccountController {
             @ApiResponse(responseCode = "200", description = "로그인 API", content = @Content(schema = @Schema(implementation = AccountDto.TokenDto.class)))
     })
     @PostMapping("/signIn")
-    public ResponseEntity<AccountDto.TokenDto> signIn(AccountDto.AccountInfoDto accountInfoDto) {
+    public ResponseEntity<AccountDto.TokenDto> signIn(@RequestBody AccountDto.AccountInfoDto accountInfoDto) {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.signIn(accountInfoDto));
     }
 }

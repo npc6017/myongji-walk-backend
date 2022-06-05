@@ -2,6 +2,7 @@ package com.mw.domain.pathfind.controller;
 
 import com.mw.domain.MapDto;
 import com.mw.domain.dto.NodeDto;
+import com.mw.domain.edgeweight.enttiy.WeightCode;
 import com.mw.domain.pathfind.entity.ResponseDto;
 import com.mw.domain.pathfind.service.PathFindService;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
@@ -61,7 +62,7 @@ public class PathFindController {
     })
     @Operation(summary = "경로 탐색 결과 조회", description = "경로 탐색을 조집니다.")
     @GetMapping("/pathFind")
-    public ResponseEntity<ResponseDto> pathFind(@RequestParam Long start, @RequestParam Long end) {
-        return ResponseEntity.status(HttpStatus.OK).body(pathFindService.pathFind(start, end));
+    public ResponseEntity<ResponseDto> pathFind(@RequestParam Long start, @RequestParam Long end, @RequestParam WeightCode weightCode) {
+        return ResponseEntity.status(HttpStatus.OK).body(pathFindService.pathFind(start, end, weightCode));
     }
 }

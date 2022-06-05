@@ -10,7 +10,7 @@ import java.util.List;
 
 
 // angle이 음수가 나오는 것에 대해서도 처리가 가능해야할 것 같음..?
-public class ResponseBuilder {
+public class DirectionGiver {
     public List<Guide> buildGuide(ArrayList<NodeDto.NodeInfoDto> pathList, ArrayList<Integer> distance) {
         Deque<NodeDto.NodeInfoDto> pathQueue = new ArrayDeque<>(pathList);
         List<Guide> guideList = new ArrayList<>();

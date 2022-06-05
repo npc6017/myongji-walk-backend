@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -18,6 +20,7 @@ public class EdgeWeight {
     private Long id;
 
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     private Edge edge;
 
     @Enumerated(EnumType.STRING)

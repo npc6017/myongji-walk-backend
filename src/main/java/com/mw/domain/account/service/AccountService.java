@@ -21,12 +21,14 @@ public class AccountService {
 
     @Transactional
     public void signUp(AccountDto.AccountInfoDto accountInfoDto) {
-        Account account = accountRepository.findAccountByEmail(accountInfoDto.getEmail()).orElseThrow(AccountNotFoundException::new);
+        Account account =
+                accountRepository.findAccountByEmail(accountInfoDto.getEmail()).orElseThrow(AccountNotFoundException::new);
         account.inputDetails(accountInfoDto.getPassword());
     }
 
     public AccountDto.TokenDto signIn(AccountDto.AccountInfoDto accountInfoDto) {
-        Account account = accountRepository.findAccountByEmail(accountInfoDto.getEmail()).orElseThrow(AccountNotFoundException::new);
+        Account account =
+                accountRepository.findAccountByEmail(accountInfoDto.getEmail()).orElseThrow(AccountNotFoundException::new);
 
         if (!account.validatePassword(accountInfoDto.getPassword())) throw new PasswordIncorrectException();
 

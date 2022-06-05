@@ -7,13 +7,11 @@ import com.mw.domain.edge.repository.EdgeRepository;
 import com.mw.domain.edgeweight.enttiy.EdgeDto;
 import com.mw.domain.edgeweight.enttiy.EdgeWeight;
 import com.mw.domain.edgeweight.enttiy.EdgeWeightDto;
+import com.mw.domain.edgeweight.enttiy.WeightCode;
 import com.mw.domain.edgeweight.repository.EdgeWeightRepository;
 import com.mw.domain.node.enttiy.Node;
 import com.mw.domain.node.repository.NodeRepository;
-import com.mw.domain.pathfind.MapDataUtil;
-import com.mw.domain.pathfind.entity.Guide;
-import com.mw.domain.pathfind.entity.PathResult;
-import com.mw.domain.pathfind.entity.ResponseDto;
+import com.mw.domain.pathfind.entity.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +26,7 @@ public class PathFindService {
     private final EdgeRepository edgeRepository;
     private final NodeRepository nodeRepository;
     private final EdgeWeightRepository edgeWeightRepository;
-    private final MapDataUtil mapDataUtil;
+    private final MapProvider mapProvider;
 
     public Long createNode(NodeDto.NodeInfoDto newNode) {
         Node save = nodeRepository.save(Node.builder()
@@ -84,12 +82,11 @@ public class PathFindService {
 
             mapEdgeList.add(new EdgeDto.MapEdgeDto(edge, new NodeDto.MapNodeDto(startNode), new NodeDto.MapNodeDto(endNode)));
         }
-        MapDto build = MapDto.builder()
+
+        return MapDto.builder()
                 .nodeList(mapNodeList)
                 .edgeList(mapEdgeList)
                 .build();
-
-        return build;
     }
 
     public void calculateDistance() {
@@ -99,15 +96,16 @@ public class PathFindService {
             edge.distanceTo();
     }
 
-    public ResponseDto pathFind(Long start, Long end) {
-        Dijkstra dijkstra = new Dijkstra(mapDataUtil.getLowHillGraph());
-        PathResult pathResult = dijkstra.pathFind(start, end);
-        ResponseBuilder responseBuilder = new ResponseBuilder();
-        List<Guide> guides = responseBuilder.buildGuide(pathListToNodeInfoDtoList(pathResult.getPathList()), pathResult.getDistance());
+    public ResponseDto pathFind(Long start, Long end, WeightCode weightCode) {
+        PathFind pathFind = new PathFind(mapProvider);
+        PathResult pathResult = pathFind.findPath(start, end, weightCode);
+        DirectionGiver directionGiver = new DirectionGiver();
+
+        List<Guide> guides = directionGiver.buildGuide(pathListToNodeInfoDtoList(pathResult.getPathList()), pathResult.getDistance());
 
         return ResponseDto.builder()
-                .start(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(start)))
-                .goal(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(end)))
+                .start(NodeDto.nodeToNodeInfoDto(nodeRepository.findById(start).orElseThrow(RuntimeException::new)))
+                .goal(NodeDto.nodeToNodeInfoDto(nodeRepository.findById(end).orElseThrow(RuntimeException::new)))
                 .items(pathListToNodeInfoDtoList(pathResult.getPathList()))
                 .sumDistance(pathResult.getAllDistance().toString())
                 .guide(guides)
@@ -117,7 +115,7 @@ public class PathFindService {
     private ArrayList<NodeDto.NodeInfoDto> pathListToNodeInfoDtoList(ArrayList<Long> pathList) {
         ArrayList<NodeDto.NodeInfoDto> result = new ArrayList<>();
         for (Long path : pathList)
-            result.add(NodeDto.nodeToNodeInfoDto(mapDataUtil.getNodeById(path)));
+            result.add(NodeDto.nodeToNodeInfoDto(nodeRepository.findById(path).orElseThrow(RuntimeException::new)));
 
         return result;
     }

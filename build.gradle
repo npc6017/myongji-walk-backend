@@ -18,6 +18,10 @@ repositories {
 	mavenCentral()
 }
 
+test {
+	useJUnitPlatform()
+}
+
 dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.6'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -28,9 +32,8 @@ dependencies {
 	implementation "io.springfox:springfox-boot-starter:3.0.0"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
+	compileOnly 'org.postgresql:postgresql'
 }

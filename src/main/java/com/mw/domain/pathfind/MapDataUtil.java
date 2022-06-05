@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
 @Getter
 public class MapDataUtil {
     private final List<Node> nodeArrayList;
